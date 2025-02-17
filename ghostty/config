@@ -1,0 +1,14 @@
+theme = catppuccin-mocha
+font-family = JetBrainsMono Nerd Font
+#font-family = Monofur Nerd Font
+#font-family = GohuFont 14 Nerd Font
+font-size = 12
+background-blur-radius = 20
+mouse-hide-while-typing = true
+#shell-integration = zsh
+shell-integration = fish
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = none
+keybind = ctrl+f11=toggle_fullscreen
+keybind = f11=toggle_maximize
