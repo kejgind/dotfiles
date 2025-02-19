@@ -27,6 +27,11 @@ ln -s $DOTFILES/yazi/yazi.toml $HOME/.config/yazi/yazi.toml
 ln -s $DOTFILES/yazi/theme.toml $HOME/.config/yazi/theme.toml
 ln -s $DOTFILES/yazi/Catppuccin-mocha.tmTheme $HOME/.config/yazi/Catppuccin-mocha.tmTheme
 
+#Lazygit
+rm -rf $HOME/.config/lazygit/
+mkdir -p $HOME/.config/lazygit/
+ln -s $DOTFILES/lazygit/config.yml $HOME/.config/lazygit/config.yml
+
 #Scripts
 mkdir -p $HOME/.local/bin
 ln -sf $DOTFILES/scripts/t $HOME/.local/bin/t
