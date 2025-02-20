@@ -8,7 +8,10 @@ format = """$shell$character$directory"""
 right_format = """$all"""
 
 [character] # The name of the module we are configuring is 'character'
-vicmd_symbol = "[] >>>"
+vimcmd_symbol = '[](green)'
+vimcmd_replace_one_symbol = '[](purple)'
+vimcmd_replace_symbol = '[](purple)'
+vimcmd_visual_symbol = '[](yellow)'
 success_symbol = '[➜](bold green) ' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 error_symbol = '[✗](bold red) '
 
