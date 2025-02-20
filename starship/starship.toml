@@ -4,17 +4,32 @@
 # Inserts a blank line between shell prompts
 add_newline = false
 
-# Replace the '❯' symbol in the prompt with '➜'
+format = """$shell$character$directory"""
+right_format = """$all"""
+
 [character] # The name of the module we are configuring is 'character'
-vicmd_symbol = "[N] >>>"
-success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+vicmd_symbol = "[] >>>"
+success_symbol = '[➜](bold green) ' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[✗](bold red) '
 
 [directory.substitutions]
 '~/Sites' = 'S'
-'~/WebApps' = 'Apps'
+'~/WebApps' = 'WA'
+'~/WebDev' = 'WD'
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style)'
 
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[memory_usage]
+disabled = false
+threshold = -1
+
+[shell]
+disabled = false
+fish_indicator = '󰈺 '
+
+[time]
+disabled = false
