@@ -1,3 +1,5 @@
+set -Ux TERM "tmux-256color"
+
 # name: 'Catppuccin Mocha'
 # url: 'https://github.com/catppuccin/fish'
 # preferred_background: 1e1e2e

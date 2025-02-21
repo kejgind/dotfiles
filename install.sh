@@ -12,7 +12,10 @@ mkdir -p $HOME/.config/ghostty
 ln -s $DOTFILES/ghostty/config $HOME/.config/ghostty/config
 
 #Tmux
+rm -rf $HOME/.tmux
 rm -rf $HOME/.tmux.conf
+mkdir -p $HOME/.tmux/plugins
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 #Fish-shell
