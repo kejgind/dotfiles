@@ -2,9 +2,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
-add_newline = false
+add_newline = true
 
-format = """$shell$character$directory"""
+format = """$os$shell$character$directory"""
 right_format = """$all"""
 
 [character] # The name of the module we are configuring is 'character'
@@ -21,18 +21,38 @@ error_symbol = '[✗](bold red) '
 '~/WebDev' = 'WD'
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style)'
+format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
-
-[memory_usage]
-disabled = false
-threshold = -1
+format = '([\[$all_status$ahead_behind\]]($style) ) '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+modified = '!${count}'
+untracked = '?${count}'
 
 [shell]
 disabled = false
-fish_indicator = '󰈺 '
+fish_indicator = '[󰈺 ](blue)'
 
-[time]
+[os.symbols]
+Fedora = '[ ](blue)'
+Manjaro = '[ ](green)'
+Ubuntu = '[󰕈 ](red)'
+
+[os]
 disabled = false
+
+[bun]
+symbol = ' '
+
+[deno]
+symbol = ' '
+
+[php]
+symbol = ' '
+
+[sudo]
+disabled = false
+symbol = ' '
+style = 'red'
