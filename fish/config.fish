@@ -66,4 +66,8 @@ function composer83
     docker run --rm --interactive --tty --volume pwd:/app composer/composer:2.8.3 $argv
 end
 
+function nodelts
+    docker run --rm -v (pwd)"/":/app -w /app node:22 bash -c (printf "'%s' " $argv)
+end
+
 starship init fish | source
