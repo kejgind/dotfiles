@@ -67,15 +67,15 @@ function composer83
 end
 
 function node20
-    docker run --rm -v (pwd)"/":/app -w /app node:20-alpine /bin/sh -c (printf "'%s' " $argv)
+    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) node:20-alpine /bin/sh -c (printf "'%s' " $argv)
 end
 
 function node22
-    docker run --rm -v (pwd)"/":/app -w /app node:22-alpine /bin/sh -c (printf "'%s' " $argv)
+    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) node:22-alpine /bin/sh -c (printf "'%s' " $argv)
 end
 
 function bunrun
-    docker run --rm -v (pwd)"/":/app -w /app oven/bun bash -c (printf "'%s' " $argv)
+    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) oven/bun:1-alpine /bin/sh -c (printf "'%s' " $argv)
 end
 
 starship init fish | source
