@@ -36,6 +36,11 @@ rm -rf $HOME/.config/lazygit
 mkdir -p $HOME/.config/lazygit
 ln -s $DOTFILES/lazygit/config.yml $HOME/.config/lazygit/config.yml
 
+#Lazydocker
+rm -rf $HOME/.config/lazydocker
+mkdir -p $HOME/.config/lazydocker
+ln -s $DOTFILES/lazydocker/config.yml $HOME/.config/lazydocker/config.yml
+
 #Scripts
 mkdir -p $HOME/.local/bin
 ln -sf $DOTFILES/scripts/t $HOME/.local/bin/
