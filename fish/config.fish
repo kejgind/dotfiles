@@ -35,7 +35,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 
 # Add bin directories to path.
 fish_add_path --prepend (
-    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin
+    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm
 )
 
 function sail
@@ -44,6 +44,12 @@ function sail
     else
         sh vendor/bin/sail $argv
     end
+end
+
+set -x PHPENV_ROOT "$HOME/.phpenv"
+if test -d "$PHPENV_ROOT"
+    set -x PATH "$PHPENV_ROOT/bin" $PATH
+    status --is-interactive; and source (phpenv init -|psub)
 end
 
 function php74
