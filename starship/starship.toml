@@ -36,6 +36,7 @@ disabled = false
 fish_indicator = '[󰈺 ](blue)'
 
 [os.symbols]
+Arch = '[ ](blue)'
 Fedora = '[ ](blue)'
 Manjaro = '[ ](green)'
 Ubuntu = '[󰕈 ](red)'
