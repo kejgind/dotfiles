@@ -38,50 +38,18 @@ fish_add_path --prepend (
     path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin
 )
 
-function sail
-    if test -f sail
-        sh sail $argv
-    else
-        sh vendor/bin/sail $argv
-    end
-end
-
 set -x PHPENV_ROOT "$HOME/.phpenv"
 if test -d "$PHPENV_ROOT"
     set -x PATH "$PHPENV_ROOT/bin" $PATH
     status --is-interactive; and source (phpenv init -|psub)
 end
 
-function php74
-    docker run --rm --interactive --tty --volume pwd:/app -w /app php:7.4-cli php $argv
-end
-
-function php82
-    docker run --rm --interactive --tty --volume pwd:/app -w /app php:8.2-cli php $argv
-end
-
-function php83
-    docker run --rm --interactive --tty --volume pwd:/app -w /app php:8.3-cli php $argv
-end
-
-function php84
-    docker run --rm --interactive --tty --volume pwd:/app -w /app php:8.4-cli php $argv
-end
-
-function composer83
-    docker run --rm --interactive --tty --volume pwd:/app composer/composer:2.8.3 $argv
-end
-
-function node20
-    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) node:20-alpine /bin/sh -c (printf "'%s' " $argv)
-end
-
-function node22
-    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) node:22-alpine /bin/sh -c (printf "'%s' " $argv)
-end
-
-function bunrun
-    docker run --rm -v (pwd)"/":/app -w /app --user (id -u):(id -g) oven/bun:1-alpine /bin/sh -c (printf "'%s' " $argv)
+if status is-interactive
+  mise activate fish | source
+else
+  mise activate fish --shims | source
 end
 
 starship init fish | source
+mise activate fish | source
+~/.local/bin/mise activate fish | source
