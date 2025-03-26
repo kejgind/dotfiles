@@ -31,9 +31,11 @@ ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 #Yazi
 rm -rf $HOME/.config/yazi
 mkdir -p $HOME/.config/yazi
-ln -s $DOTFILES/yazi/yazi.toml $HOME/.config/yazi/yazi.toml
-ln -s $DOTFILES/yazi/theme.toml $HOME/.config/yazi/theme.toml
-ln -s $DOTFILES/yazi/Catppuccin-mocha.tmTheme $HOME/.config/yazi/Catppuccin-mocha.tmTheme
+
+# Create symlinks for all Yazi config files
+for yazi_config in $DOTFILES/yazi/*; do
+    ln -s "$yazi_config" "$HOME/.config/yazi/$(basename $yazi_config)"
+done
 
 #Lazygit
 rm -rf $HOME/.config/lazygit
