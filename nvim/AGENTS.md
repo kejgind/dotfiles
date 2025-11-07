@@ -21,3 +21,14 @@
 
 ## Architecture
 Modular config based on Kickstart.nvim. Entry point: `init.lua` → loads `config/` modules (globals, options, keymaps, autocmds, lazy) → lazy.nvim imports categorized plugins from `plugins/{ai,completion,core,editor,formatting,lsp,ui}/` + kickstart plugins. Total ~1148 lines across all files.
+
+### AI Integration (Avante + MCPHub + Context7)
+**Flow**: Avante → MCPHub → Context7 MCP Server
+- **Avante** (`plugins/ai/avante.lua`): Chat interface with mode='agentic', Copilot provider (claude-sonnet-4.5)
+- **MCPHub** (`plugins/ai/mcphub.lua`): Bridge to MCP servers, config in `mcp/servers.json`, requires global `npm install -g mcp-hub@latest`
+- **Context7**: Remote MCP server providing library docs via `get-library-docs`/`resolve-library-id` tools
+- **Copilot** (`plugins/ai/copilot.lua`): Inline suggestions with Alt+L keybind
+- **Integration**: Avante's `custom_tools` function calls `mcphub.extensions.avante.mcp_tool()` to get `use_mcp_tool` + `access_mcp_resource` tools
+- **Completion**: blink-cmp with `'Kaiser-Yang/blink-cmp-avante'` provides `/mcp:context7:*` slash commands in Avante chat
+- **Disabled tools**: Avante's built-in file ops (append/apply/edit/write) disabled, uses bash+MCP instead
+- **Secrets**: CONTEXT7_API_KEY from `~/.config/secrets.env` via `_G.om.secrets`

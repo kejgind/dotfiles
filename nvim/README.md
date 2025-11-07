@@ -13,7 +13,7 @@ Personal Neovim configuration forked from [kickstart.nvim](https://github.com/nv
 
 **Core:** lazy.nvim, treesitter, telescope, blink-cmp, which-key, snacks.nvim  
 **LSP:** native LSP (lua_ls, ts_ls, etc) + Mason for tool management  
-**AI:** Copilot + Avante  
+**AI:** Copilot (inline) + Avante (chat) + MCPHub (MCP bridge) + Context7 (library docs)  
 **Editor:** gitsigns, mini.nvim (surround/ai/statusline), todo-comments, undotree  
 **Formatting:** conform.nvim (stylua, prettierd, etc)
 
@@ -23,7 +23,9 @@ Personal Neovim configuration forked from [kickstart.nvim](https://github.com/nv
 - `git`, `make`, `gcc`, `ripgrep`, `fd`
 - Clipboard tool (xclip/xsel/win32yank)
 - Nerd Font (set `vim.g.have_nerd_font = true` in init.lua)
-- Node.js (for LSP servers like ts_ls)
+- Node.js + npm (for LSP servers like ts_ls)
+- `npm install -g mcp-hub@latest` (for MCP integration)
+- Context7 API key in `~/.config/secrets.env` (for MCP integration)
 
 ## Setup
 

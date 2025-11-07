@@ -31,6 +31,7 @@ return {
       opts = {},
     },
     'folke/lazydev.nvim',
+    'Kaiser-Yang/blink-cmp-avante', -- Avante slash commands
   },
   --- @module 'blink.cmp'
   --- @type blink.cmp.Config
@@ -76,9 +77,14 @@ return {
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'lazydev', 'avante' },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        avante = {
+          name = 'avante',
+          module = 'blink-cmp-avante',
+          score_offset = 90, -- High priority for MCP slash commands
+        },
       },
     },
 

@@ -42,6 +42,24 @@ return {
       throttle = 600,
     },
 
+    -- MCPHub integration - inject Context7 tools via mcp_tool()
+    custom_tools = function()
+      local ok, mcphub_avante = pcall(require, 'mcphub.extensions.avante')
+      if not ok then
+        return {}
+      end
+      local use_mcp_tool, access_mcp_resource = mcphub_avante.mcp_tool()
+      return { use_mcp_tool, access_mcp_resource }
+    end,
+
+    -- Disable Avante's built-in file operation tools (keep bash, use MCP for files)
+    disabled_tools = {
+      'append',
+      'apply',
+      'edit',
+      'write',
+    },
+
     providers = {
       copilot = {
         model = 'claude-sonnet-4.5',
