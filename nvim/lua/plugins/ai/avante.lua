@@ -4,32 +4,51 @@ return {
   event = 'VeryLazy',
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   opts = {
-    -- add any opts here
-    -- for example
     provider = 'copilot',
+    mode = 'agentic',
+    instructions_file = 'avante.md',
+
+    -- Behavior settings - manual control, no auto-suggestions to avoid copilot conflict
+    behaviour = {
+      auto_suggestions = false,
+      auto_apply_diff_after_generation = false,
+      support_paste_from_clipboard = true,
+    },
+
+    -- Window positioning - right side, 30% width
+    windows = {
+      position = 'right',
+      width = 30,
+      sidebar_header = {
+        enabled = true,
+        align = 'center',
+      },
+    },
+
+    -- Delayed hints for selections
+    selection = {
+      enable = true,
+      delay = 300,
+    },
+
+    -- File selector - using fzf_lua (lightweight)
+    selector = {
+      provider = 'fzf_lua',
+    },
+
+    -- Suggestion timing controls
+    suggestion = {
+      debounce = 600,
+      throttle = 600,
+    },
+
     providers = {
       copilot = {
-        -- model = 'copilot/claude-3.5-sonnet',
         model = 'claude-sonnet-4.5',
-        -- model = 'gemini-2.5-pro',
         extra_request_body = {
           temperature = 0,
           max_tokens = 8192,
         },
-        -- models_list = {
-        --   'gpt-4o',
-        --   'gpt-4.1',
-        --   'gpt-4.5-preview',
-        --   'claude-3.5-sonnet',
-        --   'claude-3.7-sonnet',
-        --   'claude-3.7-sonnet-thinking',
-        --   'gemini-2.0-flash',
-        --   'gemini-2.5-pro-preview',
-        --   'o1-preview',
-        --   'o3-preview',
-        --   'o3-mini',
-        --   'o4-mini-preview',
-        -- },
       },
     },
   },
