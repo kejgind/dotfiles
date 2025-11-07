@@ -35,7 +35,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 
 # Add bin directories to path.
 fish_add_path --prepend (
-    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin
+    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin $HOME/.config/composer/vendor/bin
 )
 
 set -x PHPENV_ROOT "$HOME/.phpenv"
@@ -50,6 +50,12 @@ else
   mise activate fish --shims | source
 end
 
+set -gx EDITOR "nvim"
+
 starship init fish | source
 mise activate fish | source
 ~/.local/bin/mise activate fish | source
+zoxide init fish | source
+
+# opencode
+fish_add_path /home/krzysiek/.opencode/bin
