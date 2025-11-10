@@ -75,9 +75,26 @@ vim.o.softtabstop = 4
 
 -- Change diagnostic symbols in the sign column (gutter)
 if vim.g.have_nerd_font then
-  local signs = { Error = '', Warn = '', Hint = '', Info = '' }
-  for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [1] = '',  -- ERROR
+        [2] = '',  -- WARN
+        [3] = '',  -- INFO
+        [4] = '',  -- HINT
+      },
+      numhl = {
+        [1] = 'DiagnosticSignError',
+        [2] = 'DiagnosticSignWarn',
+        [3] = 'DiagnosticSignInfo',
+        [4] = 'DiagnosticSignHint',
+      },
+      texthl = {
+        [1] = 'DiagnosticSignError',
+        [2] = 'DiagnosticSignWarn',
+        [3] = 'DiagnosticSignInfo',
+        [4] = 'DiagnosticSignHint',
+      },
+    },
+  })
 end
