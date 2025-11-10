@@ -31,4 +31,4 @@ Modular config based on Kickstart.nvim. Entry point: `init.lua` → loads `confi
 - **Integration**: Avante's `custom_tools` function calls `mcphub.extensions.avante.mcp_tool()` to get `use_mcp_tool` + `access_mcp_resource` tools
 - **Completion**: blink-cmp with `'Kaiser-Yang/blink-cmp-avante'` provides `/mcp:context7:*` slash commands in Avante chat
 - **Disabled tools**: Avante's built-in file ops (append/apply/edit/write) disabled, uses bash+MCP instead
-- **Secrets**: CONTEXT7_API_KEY from `~/.config/secrets.env` via `_G.om.secrets`
+- **Secrets**: API keys loaded from `~/.secrets/` directory (filename → UPPERCASE env var) via `_G.om.secrets`

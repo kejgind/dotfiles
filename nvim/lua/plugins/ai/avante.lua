@@ -6,7 +6,12 @@ return {
   opts = {
     provider = 'copilot',
     mode = 'agentic',
-    instructions_file = 'avante.md',
+
+    -- Dynamic system prompt with real-time MCP server state
+    system_prompt = function()
+      local hub = require("mcphub").get_hub_instance()
+      return hub and hub:get_active_servers_prompt() or ""
+    end,
 
     -- Behavior settings - manual control, no auto-suggestions to avoid copilot conflict
     behaviour = {
@@ -42,14 +47,11 @@ return {
       throttle = 600,
     },
 
-    -- MCPHub integration - inject Context7 tools via mcp_tool()
+    -- MCPHub integration - inject MCP tools via mcp_tool()
     custom_tools = function()
-      local ok, mcphub_avante = pcall(require, 'mcphub.extensions.avante')
-      if not ok then
-        return {}
-      end
-      local use_mcp_tool, access_mcp_resource = mcphub_avante.mcp_tool()
-      return { use_mcp_tool, access_mcp_resource }
+      return {
+        require("mcphub.extensions.avante").mcp_tool(),
+      }
     end,
 
     -- Disable Avante's built-in file operation tools (keep bash, use MCP for files)

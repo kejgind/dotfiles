@@ -25,7 +25,7 @@ Personal Neovim configuration forked from [kickstart.nvim](https://github.com/nv
 - Nerd Font (set `vim.g.have_nerd_font = true` in init.lua)
 - Node.js + npm (for LSP servers like ts_ls)
 - `npm install -g mcp-hub@latest` (for MCP integration)
-- Context7 API key in `~/.config/secrets.env` (for MCP integration)
+- API keys in `~/.secrets/` directory (each key in separate file, e.g., `~/.secrets/api_key_name`)
 
 ## Setup
 
