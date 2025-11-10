@@ -18,8 +18,9 @@ ln -s $DOTFILES/starship/starship.toml $HOME/.config/starship.toml
 
 #Ghostty
 rm -rf $HOME/.config/ghostty
-mkdir -p $HOME/.config/ghostty
+mkdir -p $HOME/.config/ghostty/themes
 ln -s $DOTFILES/ghostty/config $HOME/.config/ghostty/config
+ln -s $DOTFILES/ghostty/themes/catppuccin-mocha.conf $HOME/.config/ghostty/themes/catppuccin-mocha.conf
 
 #Tmux
 rm -rf $HOME/.tmux
