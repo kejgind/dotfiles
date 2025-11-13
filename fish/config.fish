@@ -35,7 +35,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 
 # Add bin directories to path.
 fish_add_path --prepend (
-    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin $HOME/.config/composer/vendor/bin
+    path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin $HOME/.config/composer/vendor/bin $HOME/.local/share/mise/shims
 )
 
 set -x PHPENV_ROOT "$HOME/.phpenv"
