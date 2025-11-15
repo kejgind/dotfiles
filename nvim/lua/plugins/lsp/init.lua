@@ -237,10 +237,11 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
-      'prettier',
+      'prettierd',
       'eslint_d',
       'stylelint',
       'pint',
+      'php-cs-fixer',
       'twigcs', -- Twig Code Sniffer
       'twig-cs-fixer', -- Twig CS Fixer for formatting
       'twiggy-language-server', -- Twig Language Server

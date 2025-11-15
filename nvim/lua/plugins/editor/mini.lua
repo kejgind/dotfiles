@@ -1,6 +1,6 @@
 -- Collection of various small independent plugins/modules
 return {
-  'echasnovski/mini.nvim',
+  'nvim-mini/mini.nvim',
   config = function()
     -- Better Around/Inside textobjects
     --
@@ -24,6 +24,9 @@ return {
     -- Work with trailing whitespace
     require('mini.trailspace').setup()
 
+    -- Show notifications in floating window
+    require('mini.notify').setup()
+
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
     --  and try some other statusline plugin
@@ -31,15 +34,18 @@ return {
     -- set use_icons to true if you have a Nerd Font
     statusline.setup { use_icons = vim.g.have_nerd_font }
 
-    -- You can configure sections in the statusline by overriding their
-    -- default behavior. For example, here we set the section for
-    -- cursor location to LINE:COLUMN
+    -- Custom location section with spaces around separator
+    -- Shows: line|total │ column|total (or line │ column when truncated)
     ---@diagnostic disable-next-line: duplicate-set-field
-    statusline.section_location = function()
-      return '%2l:%-2v'
+    statusline.section_location = function(args)
+      args = args or {}
+      if MiniStatusline.is_truncated(args.trunc_width or 75) then
+        return string.format('%d │ %d', vim.fn.line '.', vim.fn.virtcol '.')
+      end
+      return string.format('%d|%d │ %d|%d', vim.fn.line '.', vim.fn.line '$', vim.fn.virtcol '.', vim.fn.virtcol '$')
     end
 
     -- ... and there is more!
-    --  Check out: https://github.com/echasnovski/mini.nvim
+    --  Check out: https://github.com/nvim-mini/mini.nvim
   end,
 }

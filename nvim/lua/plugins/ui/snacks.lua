@@ -14,6 +14,10 @@ return {
     --   ignored = true,
     --   exclude = { 'node_modules', '.git' },
     -- },
+
+    -- Disable notifier to avoid conflict with mini.notify
+    notifier = { enabled = false },
+
     lazygit = {},
     animate = {},
     scroll = { enabled = true },
