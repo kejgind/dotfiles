@@ -245,6 +245,7 @@ return {
       'twigcs', -- Twig Code Sniffer
       'twig-cs-fixer', -- Twig CS Fixer for formatting
       'twiggy-language-server', -- Twig Language Server
+      'intelephense', -- PHP LSP for WordPress
     })
 
     -- Add configuration for twig language server
@@ -268,6 +269,72 @@ return {
       },
     })
 
+    -- Detect if WordPress project
+    local function is_wordpress_project()
+      local cwd = vim.fn.getcwd()
+      return vim.fn.filereadable(cwd .. '/wp-config.php') == 1
+    end
+
+    -- Configure intelephense for WordPress projects only
+    vim.lsp.config('intelephense', {
+      cmd = { 'intelephense', '--stdio' },
+      filetypes = { 'php' },
+      capabilities = capabilities,
+      root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        local cwd = assert(vim.uv.cwd())
+        local root = vim.fs.root(fname, { 'wp-config.php', 'composer.json', '.git' })
+        on_dir(root and vim.fs.relpath(cwd, root) and cwd)
+      end,
+      settings = {
+        intelephense = {
+          -- OPTION 1 (ACTIVE): Set to true to use intelephense formatting
+          -- OPTION 2: Set to false to use external formatter (phpcbf) - configure in conform.lua
+          format = { enable = true },
+          stubs = {
+            'wordpress',
+            'bcmath',
+            'curl',
+            'date',
+            'dom',
+            'fileinfo',
+            'filter',
+            'gd',
+            'gettext',
+            'hash',
+            'iconv',
+            'imagick',
+            'json',
+            'libxml',
+            'mbstring',
+            'mysqli',
+            'mysqlnd',
+            'openssl',
+            'pcre',
+            'PDO',
+            'pdo_mysql',
+            'Phar',
+            'SimpleXML',
+            'sockets',
+            'sodium',
+            'standard',
+            'tokenizer',
+            'xml',
+            'xmlreader',
+            'xmlwriter',
+            'zip',
+            'zlib',
+          },
+        },
+      },
+    })
+
+    -- Enable intelephense only in WordPress projects
+    if is_wordpress_project() then
+      vim.lsp.enable 'intelephense'
+    end
+
+    -- Configure phptools (disabled in WordPress projects)
     vim.lsp.config('phptools', {
       cmd = { 'devsense-php-ls', '--stdio' },
       filetypes = { 'php' },
@@ -295,7 +362,11 @@ return {
         },
       },
     })
-    vim.lsp.enable 'phptools'
+
+    -- Enable phptools only in non-WordPress projects
+    if not is_wordpress_project() then
+      vim.lsp.enable 'phptools'
+    end
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

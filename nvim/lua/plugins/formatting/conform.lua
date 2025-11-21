@@ -60,12 +60,20 @@ return {
           return { 'php_cs_fixer' }
         end
 
-        -- WordPress: Check for wp-config.php (use LSP fallback)
+        -- WordPress: Check for wp-config.php
+        -- OPTION 1 (ACTIVE): Use intelephense LSP for formatting
+        --   - Simple, built-in formatting
+        --   - Enable in init.lua: format = { enable = true }
+        -- OPTION 2 (COMMENTED): Use phpcbf with WordPress Coding Standards
+        --   - More accurate WP standards (Yoda conditions, spacing, etc.)
+        --   - Uncomment line below and comment out "return {}"
+        --   - Requires: composer global require "wp-coding-standards/wpcs phpcsstandards/phpcsutils phpcsstandards/phpcsextra"
         if vim.fn.filereadable(cwd .. '/wp-config.php') == 1 then
-          return {} -- Empty = LSP fallback
+          return {} -- OPTION 1: LSP fallback (intelephense)
+          -- return { 'phpcbf' } -- OPTION 2: WordPress Coding Standards
         end
 
-        -- Default: use LSP fallback
+        -- Default: use LSP fallback (phptools)
         return {}
       end,
 
@@ -82,6 +90,17 @@ return {
         command = 'php-cs-fixer',
         args = { 'fix', '$FILENAME' },
         stdin = false,
+      },
+      -- WordPress formatter (OPTION 2 - currently commented out in formatters_by_ft)
+      -- To activate: uncomment "return { 'phpcbf' }" above (around line 72) and comment out "return {}"
+      phpcbf = {
+        command = vim.fn.expand('~/.config/composer/vendor/bin/phpcbf'),
+        args = {
+          '--standard=WordPress',
+          '--extensions=php',
+          '-',
+        },
+        stdin = true,
       },
     },
   },
