@@ -36,8 +36,8 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
--- Decrease update time
-vim.o.updatetime = 250
+-- Decrease update time (increased from 250ms to reduce terminal lag)
+vim.o.updatetime = 1000
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner

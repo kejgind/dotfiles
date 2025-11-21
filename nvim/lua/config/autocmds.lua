@@ -21,3 +21,16 @@ vim.filetype.add {
     ['.*%.twig'] = 'html.twig',
   },
 }
+
+-- Disable features in terminal buffers to reduce lag
+vim.api.nvim_create_autocmd('TermOpen', {
+  desc = 'Optimize terminal buffer performance',
+  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.cursorline = false
+    vim.opt_local.signcolumn = 'no'
+    vim.opt_local.scrollback = 10000
+  end,
+})

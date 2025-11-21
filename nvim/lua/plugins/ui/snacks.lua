@@ -23,8 +23,12 @@ return {
     animate = {},
     scroll = { enabled = true },
 
-    -- Terminal enabled but no default win config (so it doesn't affect lazygit)
-    terminal = {},
+    -- Terminal enabled with performance optimizations
+    terminal = {
+      win = {
+        style = 'terminal',
+      },
+    },
   },
   keys = {
     -- Top Pickers & Explorer
