@@ -1,3 +1,4 @@
 function composer
-    php /home/krzysiek/.local/share/mise/installs/vfox-mise-plugins-vfox-php/8.4.5/bin/composer $argv
+    set php_prefix (mise where "vfox:mise-plugins/vfox-php")
+    php $php_prefix/bin/composer $argv
 end

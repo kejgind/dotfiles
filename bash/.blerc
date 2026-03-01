@@ -1,0 +1,150 @@
+# -*- mode: sh; mode: sh-bash -*-
+#
+# ~/.blerc -- ble.sh configuration
+# Theme: Catppuccin Mocha
+#
+
+# --------------------------------------------------------------------------
+# Catppuccin Mocha palette (hex -> ble.sh color codes)
+# --------------------------------------------------------------------------
+# Rosewater  #f5e0dc  Flamingo  #f2cdcd  Pink      #f5c2e7
+# Mauve      #cba6f7  Red       #f38ba8  Maroon    #eba0ac
+# Peach      #fab387  Yellow    #f9e2af  Green     #a6e3a1
+# Teal       #94e2d5  Sky       #89dcfe  Sapphire  #74c7ec
+# Blue       #89b4fa  Lavender  #b4befe  Text      #cdd6f4
+# Subtext1   #bac2de  Subtext0  #a6adc8  Overlay2  #9399b2
+# Overlay1   #7f849c  Overlay0  #6c7086  Surface2  #585b70
+# Surface1   #45475a  Surface0  #313244  Base      #1e1e2e
+# Mantle     #181825  Crust     #11111b
+
+# --------------------------------------------------------------------------
+# Syntax highlighting faces
+# --------------------------------------------------------------------------
+
+# Default text
+ble-face -s syntax_default           fg=#cdd6f4
+
+# Commands
+ble-face -s syntax_command           fg=#89b4fa
+ble-face -s command_builtin          fg=#f38ba8
+ble-face -s command_builtin_dot      fg=#f38ba8,bold
+ble-face -s command_alias            fg=#94e2d5
+ble-face -s command_function         fg=#cba6f7
+ble-face -s command_file             fg=#a6e3a1
+ble-face -s command_keyword          fg=#89b4fa
+ble-face -s command_jobs             fg=#f38ba8
+ble-face -s command_directory        fg=#89b4fa,underline
+ble-face -s command_suffix           fg=#cdd6f4,bg=#a6e3a1
+ble-face -s command_suffix_new       fg=#cdd6f4,bg=#f38ba8
+
+# Quoting & strings
+ble-face -s syntax_quoted            fg=#a6e3a1
+ble-face -s syntax_quotation         fg=#a6e3a1,bold
+ble-face -s syntax_escape            fg=#eba0ac
+
+# Parameters & expressions
+ble-face -s syntax_param_expansion   fg=#f5c2e7
+ble-face -s syntax_expr              fg=#74c7ec
+ble-face -s syntax_varname           fg=#fab387
+
+# Delimiters & operators
+ble-face -s syntax_delimiter         fg=#9399b2,bold
+ble-face -s syntax_glob              fg=#f5c2e7,bold
+ble-face -s syntax_brace             fg=#94e2d5,bold
+ble-face -s syntax_tilde             fg=#cba6f7,bold
+
+# Comments & errors
+ble-face -s syntax_comment           fg=#7f849c
+ble-face -s syntax_error             fg=#cdd6f4,bg=#f38ba8
+ble-face -s syntax_history_expansion fg=#cdd6f4,bg=#fab387
+
+# Functions & documents
+ble-face -s syntax_function_name     fg=#cba6f7,bold
+ble-face -s syntax_document          fg=#f9e2af
+ble-face -s syntax_document_begin    fg=#f9e2af,bold
+
+# Filenames
+ble-face -s filename_directory        fg=#89b4fa,underline
+ble-face -s filename_directory_sticky fg=#cdd6f4,bg=#89b4fa,underline
+ble-face -s filename_link             fg=#94e2d5,underline
+ble-face -s filename_orphan           fg=#1e1e2e,bg=#f38ba8,underline
+ble-face -s filename_executable       fg=#a6e3a1,underline
+ble-face -s filename_setuid           fg=#1e1e2e,bg=#f9e2af,underline
+ble-face -s filename_setgid           fg=#1e1e2e,bg=#f9e2af,underline
+ble-face -s filename_other            fg=#cdd6f4,underline
+ble-face -s filename_socket           fg=#89dcfe,underline
+ble-face -s filename_pipe             fg=#a6e3a1,underline
+ble-face -s filename_character        fg=#f9e2af,underline
+ble-face -s filename_block            fg=#fab387,underline
+ble-face -s filename_warning          fg=#f38ba8,underline
+ble-face -s filename_url              fg=#89b4fa,underline
+ble-face -s filename_ls_colors        underline
+
+# Variable names
+ble-face -s varname_array             fg=#fab387,bold
+ble-face -s varname_empty             fg=#74c7ec
+ble-face -s varname_export            fg=#f5c2e7,bold
+ble-face -s varname_expr              fg=#cba6f7,bold
+ble-face -s varname_hash              fg=#a6e3a1,bold
+ble-face -s varname_new               fg=#94e2d5
+ble-face -s varname_number            fg=#a6e3a1
+ble-face -s varname_readonly          fg=#f5c2e7
+ble-face -s varname_transform         fg=#94e2d5,bold
+ble-face -s varname_unset             fg=#6c7086
+
+# Arguments
+ble-face -s argument_option           fg=#94e2d5
+ble-face -s argument_error            fg=#1e1e2e,bg=#f5c2e7
+
+# --------------------------------------------------------------------------
+# Auto-completion & menu faces
+# --------------------------------------------------------------------------
+
+# Autosuggestion ghost text (matches fish autosuggestion color: overlay0)
+ble-face -s auto_complete             fg=#6c7086
+
+# Menu completion
+ble-face -s menu_complete_match       bold
+ble-face -s menu_complete_selected    fg=#cdd6f4,bg=#45475a
+ble-face -s menu_filter_fixed         bold
+ble-face -s menu_filter_input         fg=#1e1e2e,bg=#f9e2af
+
+# --------------------------------------------------------------------------
+# Editing faces
+# --------------------------------------------------------------------------
+ble-face -s region                    fg=#cdd6f4,bg=#45475a
+ble-face -s region_target             fg=#1e1e2e,bg=#74c7ec
+ble-face -s region_match              fg=#cdd6f4,bg=#cba6f7
+ble-face -s region_insert             fg=#89b4fa,bg=#313244
+ble-face -s disabled                  fg=#6c7086
+ble-face -s overwrite_mode            fg=#1e1e2e,bg=#89dcfe
+ble-face -s prompt_status_line        fg=#cdd6f4,bg=#181825
+
+# --------------------------------------------------------------------------
+# ble.sh options
+# --------------------------------------------------------------------------
+
+# Vi mode settings (must be inside keymap_vi_load hook)
+function blerc/vim-mode-hook {
+    # Cursor shape per mode: block=normal, beam=insert, underline=operator-pending
+    ble-bind -m vi_nmap --cursor 2
+    ble-bind -m vi_imap --cursor 5
+    ble-bind -m vi_omap --cursor 4
+    ble-bind -m vi_xmap --cursor 2
+    ble-bind -m vi_cmap --cursor 0
+}
+blehook/eval-after-load keymap_vi blerc/vim-mode-hook
+
+# Auto-complete
+bleopt complete_auto_complete=1
+bleopt complete_menu_complete=1
+bleopt complete_menu_filter=1
+bleopt complete_ambiguous=1
+
+# Prompt markers -- keep them minimal
+bleopt prompt_eol_mark=$'\e[90m⏎\e[m'
+bleopt exec_errexit_mark=$'\e[38;2;235;160;172m[exited with %d]\e[m'
+bleopt exec_elapsed_mark=
+bleopt exec_exit_mark=
+bleopt edit_marker=
+bleopt edit_marker_error=

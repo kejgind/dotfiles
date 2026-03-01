@@ -4,8 +4,8 @@
 # Inserts a blank line between shell prompts
 add_newline = true
 
-format = """$os$shell$character$directory"""
-right_format = """$all"""
+format = """$all$line_break$line_break$os$shell$character$directory"""
+right_format = """"""
 
 [character] # The name of the module we are configuring is 'character'
 vimcmd_symbol = '[](green)'
@@ -33,6 +33,7 @@ untracked = '?${count}'
 
 [shell]
 disabled = false
+bash_indicator = '[ ](green)'
 fish_indicator = '[󰈺 ](blue)'
 
 [os.symbols]

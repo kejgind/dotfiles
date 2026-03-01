@@ -1,4 +1,6 @@
-set -Ux TERM "tmux-256color"
+if set -q TMUX
+    set -gx TERM "tmux-256color"
+end
 
 # name: 'Catppuccin Mocha'
 # url: 'https://github.com/catppuccin/fish'
@@ -38,12 +40,6 @@ fish_add_path --prepend (
     path filter $HOME/bin $HOME/.local/bin /usr/local/bin /usr/sbin $HOME/.local/share/fnm $HOME/.phpenv/bin $HOME/.config/composer/vendor/bin $HOME/.local/share/mise/shims
 )
 
-set -x PHPENV_ROOT "$HOME/.phpenv"
-if test -d "$PHPENV_ROOT"
-    set -x PATH "$PHPENV_ROOT/bin" $PATH
-    status --is-interactive; and source (phpenv init -|psub)
-end
-
 if status is-interactive
   mise activate fish | source
 else
@@ -53,9 +49,7 @@ end
 set -gx EDITOR "nvim"
 
 starship init fish | source
-mise activate fish | source
-~/.local/bin/mise activate fish | source
 zoxide init fish | source
 
 # opencode
-fish_add_path /home/krzysiek/.opencode/bin
+fish_add_path $HOME/.opencode/bin

@@ -1,4 +1,4 @@
 function startphp
-    ~/.local/share/mise/installs/vfox-mise-plugins-vfox-php/8.4.5/sbin/php-fpm --nodaemonize
+    set php_prefix (mise where "vfox:mise-plugins/vfox-php")
+    $php_prefix/sbin/php-fpm --nodaemonize --fpm-config $php_prefix/php-fpm.conf
 end
-
