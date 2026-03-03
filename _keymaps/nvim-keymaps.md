@@ -415,6 +415,21 @@ Undo history visualization from `undotree.lua`.
 
 ---
 
+## Testing (Neotest)
+
+Test runner operations from `lsp/neotest.lua`. Auto-detects Pest vs PHPUnit.
+
+| Keymap | Mode | Description |
+|--------|------|-------------|
+| `<leader>Tn` | `n` | Run nearest test (method under cursor) |
+| `<leader>Tf` | `n` | Run current test file |
+| `<leader>Ta` | `n` | Run all tests |
+| `<leader>To` | `n` | Show test output (floating) |
+| `<leader>Ts` | `n` | Toggle test summary panel |
+| `<leader>Tl` | `n` | Re-run last test |
+
+---
+
 ## Summary by Leader Key Groups
 
 Quick reference for leader-key organized commands:
@@ -429,6 +444,7 @@ Quick reference for leader-key organized commands:
 - **`<leader>r*`** - Rename operations (LSP)
 - **`<leader>s*`** - Search operations (Telescope)
 - **`<leader>t*`** - Toggle operations (hints, blame, terminal)
+- **`<leader>T*`** - Test operations (Neotest)
 - **`<leader>w*`** - Workspace operations (LSP)
 
 ---
@@ -443,7 +459,8 @@ Quick reference for leader-key organized commands:
 6. **Quick Format**: `<leader>f` to format current buffer
 7. **Code Navigation**: Use `gd`, `gr`, `gI` for LSP navigation
 8. **Terminal**: `<leader>tt` to toggle terminal quickly
+9. **Testing**: `<leader>Tn` to run nearest test, `<leader>Tf` to run file
 
 ---
 
-*Generated for Neovim configuration at `/home/krzysiek/dotfiles/nvim`*
+*Generated for Neovim configuration at `~/dotfiles/nvim`*
