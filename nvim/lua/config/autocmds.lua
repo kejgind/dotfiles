@@ -22,6 +22,18 @@ vim.filetype.add {
   },
 }
 
+-- Convert CRLF to LF on file read (handles Windows line endings)
+-- vim.api.nvim_create_autocmd('BufReadPost', {
+--   desc = 'Convert CRLF to LF line endings',
+--   group = vim.api.nvim_create_augroup('normalize-line-endings', { clear = true }),
+--   callback = function()
+--     if vim.bo.fileformat == 'dos' then
+--       vim.bo.fileformat = 'unix'
+--       vim.notify('Converted CRLF to LF', vim.log.levels.INFO)
+--     end
+--   end,
+-- })
+
 -- Disable features in terminal buffers to reduce lag
 vim.api.nvim_create_autocmd('TermOpen', {
   desc = 'Optimize terminal buffer performance',

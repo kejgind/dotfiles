@@ -173,87 +173,58 @@ return {
       end,
     })
 
-    -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+    -- Enhance LSP capabilities with blink.cmp
     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
-    --  Add any additional override configuration in the following tables. Available keys are:
-    --  - cmd (table): Override the default command used to start the server
-    --  - filetypes (table): Override the default list of associated filetypes for the server
-    --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-    --  - settings (table): Override the default settings passed when initializing the server.
-    --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-    local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      -- pyright = {},
-      -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`ts_ls`) will work just fine
-      -- ts_ls = {},
-      --
-
-      lua_ls = {
-        -- cmd = {...},
-        -- filetypes = { ...},
-        -- capabilities = {},
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            hint = {
-              enable = true,
-              paramName = 'All',
-              paramType = true,
-              arrayIndex = 'Auto',
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
+    -- Configure lua_ls via native Neovim 0.11 API
+    vim.lsp.config('lua_ls', {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = 'Replace',
           },
+          hint = {
+            enable = true,
+            paramName = 'All',
+            paramType = true,
+            arrayIndex = 'Auto',
+          },
+          -- diagnostics = { disable = { 'missing-fields' } },
         },
       },
-    }
+    })
+    vim.lsp.enable 'lua_ls'
 
-    -- Ensure the servers and tools above are installed
-    --  To check the current status of installed tools and/or manually install
-    --  other tools, you can run
-    --    :Mason
-    --
-    --  You can press `g?` for help in this menu.
     require('mason').setup()
 
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
-    local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
+    local ensure_installed = {
+      'lua-language-server',
+      'stylua',
       'prettierd',
       'eslint_d',
       'stylelint',
       'pint',
       'php-cs-fixer',
-      'twigcs', -- Twig Code Sniffer
-      'twig-cs-fixer', -- Twig CS Fixer for formatting
-      'twiggy-language-server', -- Twig Language Server
-      'intelephense', -- PHP LSP for WordPress
-    })
+      'twigcs',
+      'twig-cs-fixer',
+      'twiggy-language-server',
+      'intelephense',
+    }
 
-    -- Add configuration for twig language server
-    -- require('lspconfig').twiggy_language_server.setup {
+    -- Detect project type for PHP LSP routing
+    -- See lua/config/project.lua for detection logic and framework->tool mapping
+    local project = require 'config.project'
+    local project_type = project.detect()
+
+    -- Configure twig language server with framework-aware settings
+    -- Laravel uses Blade (not Twig), so twiggy is disabled for Laravel projects
+    -- WordPress (Timber) and generic PHP use 'twig' framework mode
+    -- Symfony uses 'symfony' framework mode for enhanced support
     vim.lsp.config('twiggy_language_server', {
       settings = {
         twiggy = {
-          framework = 'symfony', -- or "craft" or "twig" depending on your framework
+          framework = project_type == 'symfony' and 'symfony' or 'twig',
           autoInsertSpaces = true,
           inlayHints = {
             enabled = true,
@@ -269,13 +240,7 @@ return {
       },
     })
 
-    -- Detect if WordPress project
-    local function is_wordpress_project()
-      local cwd = vim.fn.getcwd()
-      return vim.fn.filereadable(cwd .. '/wp-config.php') == 1
-    end
-
-    -- Configure intelephense for WordPress projects only
+    -- Configure intelephense for WordPress projects
     vim.lsp.config('intelephense', {
       cmd = { 'intelephense', '--stdio' },
       filetypes = { 'php' },
@@ -329,12 +294,7 @@ return {
       },
     })
 
-    -- Enable intelephense only in WordPress projects
-    if is_wordpress_project() then
-      vim.lsp.enable 'intelephense'
-    end
-
-    -- Configure phptools (disabled in WordPress projects)
+    -- Configure phptools (devsense) for Laravel, Symfony, and generic PHP projects
     vim.lsp.config('phptools', {
       cmd = { 'devsense-php-ls', '--stdio' },
       filetypes = { 'php' },
@@ -363,24 +323,26 @@ return {
       },
     })
 
-    -- Enable phptools only in non-WordPress projects
-    if not is_wordpress_project() then
-      vim.lsp.enable 'phptools'
+    -- Enable/disable PHP LSPs based on project type
+    -- WordPress: intelephense (with WP stubs + formatting)
+    -- Laravel/Symfony/Other: phptools (devsense)
+    if project_type == 'wordpress' then
+      vim.lsp.enable('intelephense', true)
+      vim.lsp.enable('phptools', false)
+    else
+      vim.lsp.enable('intelephense', false)
+      vim.lsp.enable('phptools', true)
     end
+
+    -- Enable twiggy for all PHP projects except Laravel (which uses Blade, not Twig)
+    vim.lsp.enable('twiggy_language_server', project_type ~= 'laravel')
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          vim.lsp.config(server_name, server)
-          vim.lsp.enable(server_name)
-        end,
+      -- Disable automatic enable - we manage PHP LSPs conditionally
+      automatic_enable = {
+        exclude = { 'intelephense', 'phptools', 'twiggy_language_server' },
       },
     }
   end,

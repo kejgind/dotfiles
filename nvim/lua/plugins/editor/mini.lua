@@ -2,6 +2,12 @@
 return {
   'nvim-mini/mini.nvim',
   config = function()
+    -- Icons provider (replaces nvim-web-devicons)
+    -- mock_nvim_web_devicons() ensures plugins that depend on nvim-web-devicons
+    -- transparently use mini.icons instead
+    require('mini.icons').setup()
+    MiniIcons.mock_nvim_web_devicons()
+
     -- Better Around/Inside textobjects
     --
     -- Examples:

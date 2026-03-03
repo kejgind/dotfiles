@@ -47,33 +47,32 @@ return {
       scss = { 'stylelint', 'prettierd' },
 
       -- Dynamic PHP formatter selection based on project type
+      -- See lua/config/project.lua for detection logic and framework->tool mapping
       php = function(bufnr)
-        local cwd = vim.fn.getcwd()
+        local project = require 'config.project'
+        local project_type = project.detect()
 
-        -- Laravel: Check for artisan file
-        if vim.fn.filereadable(cwd .. '/artisan') == 1 then
+        -- Laravel: pint (Laravel's official code style fixer)
+        if project_type == 'laravel' then
           return { 'pint' }
         end
 
-        -- Symfony: Check for bin/console
-        if vim.fn.filereadable(cwd .. '/bin/console') == 1 then
+        -- Symfony: php-cs-fixer (Symfony's standard formatter)
+        if project_type == 'symfony' then
           return { 'php_cs_fixer' }
         end
 
-        -- WordPress: Check for wp-config.php
-        -- OPTION 1 (ACTIVE): Use intelephense LSP for formatting
-        --   - Simple, built-in formatting
-        --   - Enable in init.lua: format = { enable = true }
+        -- WordPress: LSP fallback (intelephense formatting)
         -- OPTION 2 (COMMENTED): Use phpcbf with WordPress Coding Standards
         --   - More accurate WP standards (Yoda conditions, spacing, etc.)
         --   - Uncomment line below and comment out "return {}"
         --   - Requires: composer global require "wp-coding-standards/wpcs phpcsstandards/phpcsutils phpcsstandards/phpcsextra"
-        if vim.fn.filereadable(cwd .. '/wp-config.php') == 1 then
+        if project_type == 'wordpress' then
           return {} -- OPTION 1: LSP fallback (intelephense)
           -- return { 'phpcbf' } -- OPTION 2: WordPress Coding Standards
         end
 
-        -- Default: use LSP fallback (phptools)
+        -- Generic PHP: LSP fallback (phptools)
         return {}
       end,
 
