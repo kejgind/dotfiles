@@ -16,15 +16,8 @@ rm -f $HOME/.local/bin/tmux_path
 cp $DOTFILES/scripts/tmux-path.sh $HOME/.local/bin/tmux_path
 chmod +x $HOME/.local/bin/tmux_path
 
-# Generate tmux.conf with shell-appropriate tmux_path call
-if [[ "$SHELL_CHOICE" == "fish" ]]; then
-    # Use fish function for tmux_path
-    cp $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
-else
-    # Use standalone tmux_path script (bash or any other shell)
-    sed "s|fish -c 'tmux_path #{pane_current_path}'|tmux_path #{pane_current_path}|" \
-        $DOTFILES/tmux/tmux.conf > $HOME/.tmux.conf
-fi
+# Install tmux.conf (shell-agnostic, uses standalone tmux_path)
+cp $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 # Install tmux plugins automatically (equivalent to prefix + I)
 $HOME/.tmux/plugins/tpm/bin/install_plugins
