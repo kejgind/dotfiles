@@ -1,3 +1,12 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+if [ -d "/home/krzysiek-dev/.local/share/bash-completion/completions" ]; then
+  for f in "/home/krzysiek-dev/.local/share/bash-completion/completions"/*; do
+    [ -f "$f" ] && . "$f"
+  done
+fi
+# OPENSPEC:END
+
 #
 # ~/.bashrc
 #
@@ -34,7 +43,6 @@ _dirs_to_add=(
     "$HOME/.phpenv/bin"
     "$HOME/.config/composer/vendor/bin"
     "$HOME/.local/share/mise/shims"
-    "$HOME/.opencode/bin"
 )
 
 for _dir in "${_dirs_to_add[@]}"; do
@@ -82,3 +90,12 @@ fi
 # ble.sh attach (must be last)
 # --------------------------------------------------------------------------
 [[ ! ${BLE_VERSION-} ]] || ble-attach
+eval "$(direnv hook bash)"
+
+# Android SDK (pj-mobile / port-to-android)
+# JDK 21, not 17: @capacitor/android 7.x pins JavaVersion.VERSION_21, so a
+# 17 toolchain fails the build outright (and leaves an unusable Gradle daemon).
+# JAVA_HOME is exported by mise (java = temurin-21 in mise/config.toml)
+export ANDROID_HOME="$HOME/Android"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"

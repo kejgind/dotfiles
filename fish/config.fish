@@ -50,6 +50,3 @@ set -gx EDITOR "nvim"
 
 starship init fish | source
 zoxide init fish | source
-
-# opencode
-fish_add_path $HOME/.opencode/bin

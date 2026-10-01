@@ -1,0 +1,20 @@
+[tools]
+claude = "latest"
+java = "temurin-21"
+node = "22"
+"npm:@fission-ai/openspec" = "latest"
+"npm:@github/copilot" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@nestjs/cli" = "latest"
+"npm:codeburn" = "latest"
+"npm:devsense-php-ls" = "latest"
+"npm:mcp-hub" = { version = "latest", allow_low_downloads = true }
+opencode = "latest"
+"vfox:mise-plugins/vfox-php" = "8.4.5"
+"vfox:version-fox/vfox-cmake" = "latest"
+
+[settings]
+# asdf = false
+# vfox = true
+disable_backends = ["asdf"]
+idiomatic_version_file_enable_tools = ["node"]

@@ -55,6 +55,7 @@ $DOTFILES/scripts/install-yazi.sh
 $DOTFILES/scripts/install-lazygit.sh
 $DOTFILES/scripts/install-lazydocker.sh
 $DOTFILES/scripts/install-nvim.sh
+$DOTFILES/scripts/install-mise.sh
 
 echo ""
 
