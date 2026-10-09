@@ -1,5 +1,6 @@
 [tools]
 claude = "latest"
+herdr = "latest"
 java = "temurin-21"
 node = "22"
 "npm:@fission-ai/openspec" = "latest"
