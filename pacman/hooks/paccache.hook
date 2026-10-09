@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Cleaning pacman cache (keep 3 versions, drop uninstalled)...
+When = PostTransaction
+Exec = /bin/sh -c '/usr/bin/paccache -rk3; /usr/bin/paccache -ruk0'
+Depends = pacman-contrib
