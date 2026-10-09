@@ -1,0 +1,6 @@
+/* TB 157: mail CSS uses --lwt-frame, but theme "frame" color still lands in
+   --lwt-accent-color -> transparent window bg with 3rd-party themes (Catppuccin).
+   Remove once Thunderbird fixes the mapping. */
+:root {
+  --lwt-frame: var(--lwt-accent-color) !important;
+}
