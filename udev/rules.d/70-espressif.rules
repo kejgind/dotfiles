@@ -1,0 +1,2 @@
+# Espressif USB JTAG/serial (ESP32-S3/C3, e.g. Xteink X4 Pro) - grant active seat user access (WebSerial/esptool without uucp group)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="303a", TAG+="uaccess"

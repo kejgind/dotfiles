@@ -59,6 +59,7 @@ $DOTFILES/scripts/install-mise.sh
 $DOTFILES/scripts/install-herdr.sh
 $DOTFILES/scripts/install-thunderbird.sh
 $DOTFILES/scripts/install-pacman.sh
+$DOTFILES/scripts/install-udev.sh
 
 echo ""
 
