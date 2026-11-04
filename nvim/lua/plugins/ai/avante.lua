@@ -72,8 +72,10 @@ return {
       },
     },
   },
-  -- prebuilt binaries via build.sh (`make` now compiles from source, needs cargo)
-  build = 'bash build.sh',
+  -- prebuilt binaries via api.build (build.sh now needs VERSION arg; `make` compiles from source, needs cargo)
+  build = function()
+    require('avante.api').build({ source = false })
+  end,
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
