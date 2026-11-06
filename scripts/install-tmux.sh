@@ -16,6 +16,11 @@ rm -f $HOME/.local/bin/tmux_path
 cp $DOTFILES/scripts/tmux-path.sh $HOME/.local/bin/tmux_path
 chmod +x $HOME/.local/bin/tmux_path
 
+# Install copy helper (dedent + clipboard)
+rm -f $HOME/.local/bin/tmux_dedent_copy
+cp $DOTFILES/scripts/tmux-dedent-copy.sh $HOME/.local/bin/tmux_dedent_copy
+chmod +x $HOME/.local/bin/tmux_dedent_copy
+
 # Install tmux.conf (shell-agnostic, uses standalone tmux_path)
 cp $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
