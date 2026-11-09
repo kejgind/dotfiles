@@ -17,4 +17,15 @@ ln -sf $DOTFILES/herdr/app/themes/catppuccin-mocha.json $APP/themes/catppuccin-m
 tmp=$(mktemp)
 jq '.theme = "catppuccin-mocha" | .font = "JetBrainsMono Nerd Font"' $APP/settings.json > $tmp && mv $tmp $APP/settings.json
 
+# mods symlinked; keys.json patched (app rewrites it)
+mkdir -p $APP/mods
+for m in $DOTFILES/herdr/app/mods/*/; do
+  m=${m%/}
+  rm -rf $APP/mods/$(basename $m)
+  ln -s $m $APP/mods/$(basename $m)
+done
+[ -f $APP/keys.json ] || echo '{}' > $APP/keys.json
+tmp=$(mktemp)
+jq '.global["ctrl-shift-g"] = "mod.open:lazygit-repos"' $APP/keys.json > $tmp && mv $tmp $APP/keys.json
+
 echo "herdr configuration installed successfully!"
