@@ -8,6 +8,7 @@ Custom keymaps for herdr-app (GUI). Bindings live in `~/.config/herdr-app/keys.j
 |--------|---------|
 | `C-x` | Ctrl + x |
 | `S-x` | Shift + x |
+| `M-x` | Alt + x |
 
 ---
 
@@ -18,6 +19,20 @@ Custom keymaps for herdr-app (GUI). Bindings live in `~/.config/herdr-app/keys.j
 | Keymap | Description |
 |--------|-------------|
 | `C-S-g` | Lazygit for a repo of the current workspace (picker → lazygit in peek overlay) |
+
+### Pane Size
+
+Mods `herdr/app/mods/pane-equalize` + `pane-resize-*`. Act on the active tab's splits.
+
+| Keymap | Description |
+|--------|-------------|
+| `C-M-=` | Equalize all splits of the tab (3 columns → 33% each, nested splits too) |
+| `C-M-h` | Move focused pane's divider left 5% |
+| `C-M-l` | Move focused pane's divider right 5% |
+| `C-M-k` | Move focused pane's divider up 5% |
+| `C-M-j` | Move focused pane's divider down 5% |
+
+Divider = pane's right/bottom one when it has a neighbor there, else left/top (tmux-like).
 
 ### Lazygit Repo Picker
 

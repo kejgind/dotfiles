@@ -24,8 +24,19 @@ for m in $DOTFILES/herdr/app/mods/*/; do
   rm -rf $APP/mods/$(basename $m)
   ln -s $m $APP/mods/$(basename $m)
 done
+# mods can't import outside their folder: pane-resize-* get a copy of the shared core
+for m in $DOTFILES/herdr/app/mods/pane-resize-*/; do
+  cp $DOTFILES/herdr/app/mods/pane-equalize/core.js $m/core.js
+done
 [ -f $APP/keys.json ] || echo '{}' > $APP/keys.json
 tmp=$(mktemp)
-jq '.global["ctrl-shift-g"] = "mod.open:lazygit-repos"' $APP/keys.json > $tmp && mv $tmp $APP/keys.json
+jq '.global += {
+  "ctrl-shift-g": "mod.open:lazygit-repos",
+  "ctrl-alt-=": "mod.open:pane-equalize",
+  "ctrl-alt-h": "mod.open:pane-resize-left",
+  "ctrl-alt-j": "mod.open:pane-resize-down",
+  "ctrl-alt-k": "mod.open:pane-resize-up",
+  "ctrl-alt-l": "mod.open:pane-resize-right"
+}' $APP/keys.json > $tmp && mv $tmp $APP/keys.json
 
 echo "herdr configuration installed successfully!"

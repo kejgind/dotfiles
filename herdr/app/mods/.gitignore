@@ -1,3 +1,5 @@
 # written by herdr-app on start
 gpui-kit.d.ts
 jsconfig.json
+# copies of pane-equalize/core.js made by install-herdr.sh (mods cannot import outside their folder)
+pane-resize-*/core.js
