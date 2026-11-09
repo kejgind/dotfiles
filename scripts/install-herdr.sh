@@ -39,4 +39,14 @@ jq '.global += {
   "ctrl-alt-l": "mod.open:pane-resize-right"
 }' $APP/keys.json > $tmp && mv $tmp $APP/keys.json
 
+# copy-on-select: primary selection owned by herdr-app -> dedent -> clipboard (systemd user service)
+mkdir -p $HOME/.local/bin $HOME/.config/systemd/user
+cp $DOTFILES/scripts/tmux-dedent-copy.sh $HOME/.local/bin/tmux_dedent_copy
+cp $DOTFILES/scripts/herdr-copy-on-select.sh $HOME/.local/bin/herdr-copy-on-select
+chmod +x $HOME/.local/bin/tmux_dedent_copy $HOME/.local/bin/herdr-copy-on-select
+cp $DOTFILES/herdr/herdr-copy-on-select.service $HOME/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable herdr-copy-on-select.service
+systemctl --user restart herdr-copy-on-select.service
+
 echo "herdr configuration installed successfully!"

@@ -1,0 +1,14 @@
+[Unit]
+Description=herdr-app copy-on-select (primary selection -> clipboard)
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/herdr-copy-on-select
+Restart=on-failure
+RestartSec=2
+# wl-copy children serve the clipboard: don't kill them on stop/restart
+KillMode=process
+
+[Install]
+WantedBy=graphical-session.target

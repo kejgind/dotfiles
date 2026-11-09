@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 # tmux copy-mode pipe: strip common indent (+ Claude Code "● "/"⎿" gutter),
 # then put result in tmux buffer and Wayland clipboard.
+# DEDENT_NO_TMUX=1: clipboard only (herdr-copy-on-select).
 use strict;
 use warnings;
 use utf8;
@@ -34,7 +35,7 @@ if ($min) {
 
 my $out = join("\n", @l) . ($nl ? "\n" : '');
 
-for my $cmd ('tmux load-buffer -', 'wl-copy') {
+for my $cmd (($ENV{DEDENT_NO_TMUX} ? () : 'tmux load-buffer -'), 'wl-copy') {
     open my $fh, '|-', $cmd or next;
     binmode $fh, ':encoding(UTF-8)';
     print $fh $out;
