@@ -87,10 +87,11 @@ fi
 [[ -f ~/.bash_functions ]] && source ~/.bash_functions
 
 # --------------------------------------------------------------------------
-# ble.sh attach (must be last)
+# direnv
 # --------------------------------------------------------------------------
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-eval "$(direnv hook bash)"
+if command -v direnv &>/dev/null; then
+    eval "$(direnv hook bash)"
+fi
 
 # Android SDK (pj-mobile / port-to-android)
 # JDK 21, not 17: @capacitor/android 7.x pins JavaVersion.VERSION_21, so a
@@ -99,3 +100,8 @@ eval "$(direnv hook bash)"
 export ANDROID_HOME="$HOME/Android"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+
+# --------------------------------------------------------------------------
+# ble.sh attach (must be last)
+# --------------------------------------------------------------------------
+[[ ! ${BLE_VERSION-} ]] || ble-attach
